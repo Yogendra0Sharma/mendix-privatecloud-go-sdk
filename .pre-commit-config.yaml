@@ -1,0 +1,34 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+          - id: trailing-whitespace
+          - id: check-case-conflict
+          - id: end-of-file-fixer
+            exclude: ^(version|build)\.txt$
+          - id: check-yaml
+          - id: check-toml
+          - id: check-merge-conflict
+          - id: check-added-large-files
+            args: [--maxkb=1500]
+          - id: detect-private-key
+            exclude: ^README.md$
+          - id: pretty-format-json
+            args: [--no-sort-keys, --autofix]
+          - id: no-commit-to-branch
+            args: [--branch, develop, --branch, master]
+
+  - repo: https://github.com/Bahjat/pre-commit-golang
+    rev: v1.0.3
+    hooks:
+      - id: go-fmt-import
+      - id: go-vet
+      - id: go-lint
+      - id: go-unit-tests
+      - id: gofumpt # requires github.com/mvdan/gofumpt
+      #- id: go-static-check # install https://staticcheck.io/docs/
+
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v1.50.1
+    hooks:
+      - id: golangci-lint
