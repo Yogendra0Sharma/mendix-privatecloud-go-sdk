@@ -12,7 +12,6 @@ Authentication for the API uses a Personal Access Token (PAT).
 Go to <https://warden.mendix.com/> and follow the instructions in Create a [Personal Access Token](https://docs.mendix.com/developerportal/community-tools/warden/
 ) with Warden. Select the following as scopes:
 
-*set MX_TOKEN=<GENERATED_PAT>*
 *mx:deployment:read* -- to perform GET operations
 
 *mx:deployment:write -- to perform all operations (GET, POST, PUT, and DELETE)
