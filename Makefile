@@ -44,9 +44,7 @@ docs:
 ###                           Tests & Simulation                            ###
 ###############################################################################
 test:
-	go test -v -cpu 4 -covermode=count -coverpkg github.com\yogendra0sharma\mendix-privatecloud-go-sdk/... -coverprofile=coverage.out.tmp ./...
-	cat coverage.out.tmp | grep -v "mendix-privatecloud-go-sdk/..." > coverage.out
-	rm coverage.out.tmp
+	go test -v -cpu 4 -covermode=count -coverpkg github.com/yogendra0sharma/mendix-privatecloud-go-sdk/... -coverprofile=coverage.out ./...
 
 cover: test
 	@echo "==> generate test coverage..."
