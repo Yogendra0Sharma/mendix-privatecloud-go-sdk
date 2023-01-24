@@ -38,7 +38,7 @@ func (s *ClusterService) GetListOfClusters() (*ListOfClusterResponse, error) {
 func (s *ClusterService) CreateCluster(cluster *ClusterObj) (*ClusterObj, error) {
 	var out ClusterObj
 
-	req, _ := s.client.NewRequest("POST", CLUSTERS, &out)
+	req, _ := s.client.NewRequest("POST", CLUSTERS, cluster)
 	_, err := s.client.Do(req, &out)
 	if err != nil {
 		return &out, err
@@ -64,7 +64,7 @@ func (s *ClusterService) GetClusterById(clusterId string) (*ClusterObj, error) {
 func (s *ClusterService) UpdateCluster(clusterId string, cluster *ClusterObj) (*ClusterObj, error) {
 	var out ClusterObj
 	u := fmt.Sprintf(CLUSTER_BY_ID, clusterId)
-	req, _ := s.client.NewRequest("PUT", u, &out)
+	req, _ := s.client.NewRequest("PUT", u, cluster)
 	_, err := s.client.Do(req, &out)
 	if err != nil {
 		return nil, err
