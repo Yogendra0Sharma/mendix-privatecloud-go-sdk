@@ -38,6 +38,115 @@ type Client struct {
 	Environment *EnvironmentService
 }
 
+type Cluster struct {
+	ClusterID   string `json:"clusterId"`
+	Name        string `json:"name"`
+	ClusterType string `json:"clusterType"`
+	Description string `json:"description"`
+}
+type ClusterObj struct {
+	ManifestVersion string  `json:"manifestVersion"`
+	Cluster         Cluster `json:"cluster"`
+}
+
+type Namespace struct {
+	ManifestVersion string `json:"manifestVersion"`
+	Namespace       struct {
+		NamespaceID      string `json:"namespaceId"`
+		Name             string `json:"name"`
+		InstallationType string `json:"installationType"`
+		Secret           string `json:"secret"`
+	} `json:"namespace"`
+}
+
+type Environment struct {
+	ManifestVersion string `json:"manifestVersion"`
+	Environment     struct {
+		ID         string `json:"id"`
+		Properties struct {
+			Name                string `json:"name"`
+			Production          bool   `json:"production"`
+			DefaultStudioTarget bool   `json:"defaultStudioTarget"`
+		} `json:"properties"`
+		Deployment struct {
+			AppURL    string `json:"appUrl"`
+			PackageID string `json:"packageId"`
+			Constants []struct {
+				Name  string `json:"name"`
+				Value string `json:"value"`
+			} `json:"constants"`
+			ScheduledEvents []struct {
+				Name    string `json:"name"`
+				Enabled bool   `json:"enabled"`
+			} `json:"scheduledEvents"`
+			AppLogLevels []struct {
+				Name  string `json:"name"`
+				Level string `json:"level"`
+			} `json:"appLogLevels"`
+		} `json:"deployment"`
+		Container struct {
+			Instances int `json:"instances"`
+			Resources struct {
+				Limits struct {
+					CPU    string `json:"cpu"`
+					Memory string `json:"memory"`
+				} `json:"limits"`
+				Requests struct {
+					CPU    string `json:"cpu"`
+					Memory string `json:"memory"`
+				} `json:"requests"`
+			} `json:"resources"`
+			State string `json:"state"`
+		} `json:"container"`
+		Provider struct {
+			ClusterID string `json:"clusterId"`
+			Namespace string `json:"namespace"`
+		} `json:"provider"`
+		Services []struct {
+			Name   string `json:"name"`
+			Plan   string `json:"plan"`
+			Config string `json:"config"`
+		} `json:"services"`
+		Network struct {
+			OutgoingConnectionCertificate []struct {
+				Enabled         bool   `json:"enabled"`
+				Password        string `json:"password"`
+				CertificateType string `json:"certificateType"`
+				Key             string `json:"key"`
+			} `json:"outgoingConnectionCertificate"`
+		} `json:"network"`
+		Runtime struct {
+			SubscriptionSecret   string `json:"subscriptionSecret"`
+			DebuggerPassword     string `json:"debuggerPassword"`
+			MxAdminPassword      string `json:"mxAdminPassword"`
+			EnvironmentVariables []struct {
+				Name  string `json:"name"`
+				Value string `json:"value"`
+			} `json:"environmentVariables"`
+			CustomSettings []struct {
+				Name  string `json:"name"`
+				Value string `json:"value"`
+			} `json:"customSettings"`
+		} `json:"runtime"`
+		Annotations []struct {
+			Key            string `json:"key"`
+			Value          string `json:"value"`
+			AnnotationType string `json:"annotationType"`
+		} `json:"annotations"`
+		RuntimeMetricsConfiguration struct {
+			Mode                         string `json:"mode"`
+			Interval                     string `json:"interval"`
+			MxAgentConfig                string `json:"mxAgentConfig"`
+			MxAgentInstrumentationConfig string `json:"mxAgentInstrumentationConfig"`
+		} `json:"runtimeMetricsConfiguration"`
+	} `json:"environment"`
+}
+type JobResponse struct {
+	ID      string `json:"id"`
+	Status  string `json:"status"`
+	Details string `json:"details"`
+}
+
 func NewClient(token string) *Client {
 	c := &Client{}
 	c.client = &http.Client{Timeout: DefaultTimeout}
